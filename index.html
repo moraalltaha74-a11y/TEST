@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مطعم النيل - اطلب أونلاين</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5f3;--card:#fff;--ink:#14201e;--mute:#5d6d69;--line:#d9e2df;--g:#0f4c45;--gt:#fff;--y:#f2b632;--yt:#14201e;--ok:#1d7a4d;--bad:#b3392e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1816;--card:#16231f;--ink:#e8f0ed;--mute:#9db0aa;--line:#2a3b36;--g:#1b7a6f;--ok:#4cc38a;--bad:#ef7d72}}
+:root[data-theme="dark"]{--bg:#0e1816;--card:#16231f;--ink:#e8f0ed;--mute:#9db0aa;--line:#2a3b36;--g:#1b7a6f;--ok:#4cc38a;--bad:#ef7d72}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,Tahoma,sans-serif;line-height:1.6}
+header{background:var(--g);color:var(--gt);padding:14px 16px 10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+header h1{margin:0 0 10px;font-size:20px;font-weight:800}
+.tabs{display:flex;gap:4px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--gt);opacity:.7;font:600 15px Cairo,Tahoma,sans-serif;padding:10px;border-bottom:3px solid transparent;cursor:pointer}
+.tabs button[aria-selected=true]{opacity:1;border-color:var(--y)}
+.badge{background:var(--y);color:var(--yt);border-radius:99px;padding:0 8px;font-size:12px;margin-inline-start:6px}
+main{max-width:760px;margin:0 auto;padding:16px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.item b{display:block;font-size:16px}.item small{color:var(--mute)}
+.price{font-weight:800;color:var(--g)}
+@media (prefers-color-scheme:dark){.price{color:var(--y)}}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:18px;cursor:pointer}
+.qty button.add{background:var(--g);color:var(--gt);border-color:var(--g);width:auto;padding:0 14px;font:600 14px Cairo,Tahoma,sans-serif}
+.cat{font-weight:800;margin:18px 0 8px;font-size:17px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:16px}
+.panel h2{margin:0 0 10px;font-size:17px}
+.row{display:flex;justify-content:space-between;padding:4px 0}
+.total{border-top:1px dashed var(--line);margin-top:6px;padding-top:8px;font-weight:800}
+input,textarea{width:100%;padding:10px 12px;margin-bottom:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:400 15px Cairo,Tahoma,sans-serif}
+.btn{width:100%;border:0;border-radius:10px;padding:13px;background:var(--y);color:var(--yt);font:800 16px Cairo,Tahoma,sans-serif;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+.msg{padding:12px;border-radius:8px;margin-top:12px;background:#e3f3ea;color:#145a39}
+@media (prefers-color-scheme:dark){.msg{background:#173a2c;color:#bfe9d2}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.stat b{display:block;font-size:22px}.stat span{color:var(--mute);font-size:13px}
+.order{background:var(--card);border:1px solid var(--line);border-inline-start:5px solid var(--y);border-radius:10px;padding:12px 14px;margin-top:12px}
+.order.s1{border-inline-start-color:#3b82c4}.order.s2{border-inline-start-color:var(--ok)}.order.s3{border-inline-start-color:var(--mute);opacity:.7}
+.order .top{display:flex;justify-content:space-between;font-weight:800}
+.order p{margin:4px 0;color:var(--mute);font-size:14px}
+.acts{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.acts button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:7px 12px;font:600 13px Cairo,Tahoma,sans-serif;cursor:pointer}
+.acts button.main{background:var(--g);color:var(--gt);border-color:var(--g)}
+.acts button.x{color:var(--bad)}
+.empty{text-align:center;color:var(--mute);padding:28px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>مطعم النيل</h1><div style="font-size:14px;opacity:.85">اختار أكلك وابعت الطلب على واتساب</div>
+  </header>
+<main>
+  <section id="cust"></section>
+  
+</main>
+<script>
+var WHATSAPP="201025218812"; // رقم واتساب المطعم بالصيغة الدولية بدون + أو 0 (مثال: 20 ثم الرقم بدون الصفر)
+var RESTAURANT="مطعم النيل";
+var MENU=[
+ {c:"الوجبات",i:[{id:1,n:"كبدة إسكندراني",d:"مع عيش وسلطة طحينة",p:85},{id:2,n:"فراخ مشوية",d:"نصف فرخة مع أرز",p:140},{id:3,n:"كشري",d:"طبق كبير بالدقة والشطة",p:45}]},
+ {c:"المشروبات",i:[{id:4,n:"عصير مانجو",d:"طازة",p:35},{id:5,n:"مياه معدنية",d:"",p:10}]}
+];
+var ALL=[];MENU.forEach(function(g){ALL=ALL.concat(g.i)});
+var cart={},info={nm:"",ph:"",ad:"",nt:""},link="";
+function $(id){return document.getElementById(id)}
+function item(id){return ALL.filter(function(x){return x.id===id})[0]}
+function total(){var t=0;for(var k in cart)t+=item(+k).p*cart[k];return t}
+function count(){var t=0;for(var k in cart)t+=cart[k];return t}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function keep(){["nm","ph","ad","nt"].forEach(function(k){if($(k))info[k]=$(k).value})}
+
+function draw(){
+  keep();var h="";
+  MENU.forEach(function(g){
+    h+='<div class="cat">'+g.c+'</div>';
+    g.i.forEach(function(x){
+      var q=cart[x.id]||0;
+      h+='<div class="item"><div><b>'+x.n+'</b><small>'+x.d+'</small><div class="price">'+x.p+' ج.م</div></div><div class="qty">'+
+      (q?'<button data-m="'+x.id+'" aria-label="إنقاص">−</button><b>'+q+'</b><button data-p="'+x.id+'" aria-label="زيادة">+</button>':'<button class="add" data-p="'+x.id+'">أضف</button>')+'</div></div>';
+    });
+  });
+  if(count()){
+    h+='<div class="panel"><h2>طلبك</h2>';
+    for(var k in cart)h+='<div class="row"><span>'+item(+k).n+' × '+cart[k]+'</span><span>'+item(+k).p*cart[k]+' ج.م</span></div>';
+    h+='<div class="row total"><span>الإجمالي</span><span>'+total()+' ج.م</span></div>'+
+    '<p style="color:var(--mute);margin:6px 0 12px;font-size:14px">الدفع عند الاستلام</p>'+
+    '<input id="nm" placeholder="الاسم" autocomplete="name" value="'+esc(info.nm)+'"><input id="ph" type="tel" placeholder="رقم الموبايل" autocomplete="tel" value="'+esc(info.ph)+'"><textarea id="ad" rows="2" placeholder="العنوان بالتفصيل">'+esc(info.ad)+'</textarea><textarea id="nt" rows="2" placeholder="ملاحظات (اختياري)">'+esc(info.nt)+'</textarea>'+
+    '<button class="btn" id="go">إرسال الطلب على واتساب</button></div>';
+  }
+  if(link)h+='<div class="msg" role="status">لو واتساب ماتفتحش لوحدها، <a href="'+link+'" target="_blank" rel="noopener" style="color:inherit;font-weight:800">اضغط هنا لإرسال الطلب</a>.</div>';
+  $("cust").innerHTML=h;
+  var b=$("go");if(b)b.onclick=send;
+}
+$("cust").onclick=function(e){
+  var p=e.target.getAttribute("data-p"),m=e.target.getAttribute("data-m");
+  if(p){cart[p]=(cart[p]||0)+1;link="";draw()}
+  if(m){cart[m]--;if(!cart[m])delete cart[m];link="";draw()}
+};
+function send(){
+  keep();
+  if(!info.nm.trim()||!info.ph.trim()||!info.ad.trim()){alert("اكتب الاسم ورقم الموبايل والعنوان عشان نقدر نوصل لك.");return}
+  var L=["*طلب جديد من "+RESTAURANT+"*","","*الطلب:*"];
+  for(var k in cart){var x=item(+k);L.push("• "+x.n+" × "+cart[k]+" = "+x.p*cart[k]+" ج.م")}
+  L.push("","*الإجمالي:* "+total()+" ج.م","*الدفع:* عند الاستلام","","*الاسم:* "+info.nm.trim(),"*الموبايل:* "+info.ph.trim(),"*العنوان:* "+info.ad.trim());
+  if(info.nt.trim())L.push("*ملاحظات:* "+info.nt.trim());
+  link="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(L.join("\n"));
+  window.open(link,"_blank","noopener");
+  draw();
+}
+draw();
+</script>
+</body>
+</html>
